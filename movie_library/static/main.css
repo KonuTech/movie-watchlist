@@ -29,13 +29,13 @@ html {
     font-size: 12px;
 }
 
-@media screen and (min-width: 60rem) {
+@media screen and (min-width: 60em) {
     html {
         font-size: 14px;
     }
 }
 
-@media screen and (min-width: 75rem) {
+@media screen and (min-width: 75em) {
     html {
         font-size: 18px;
     }
@@ -46,6 +46,77 @@ body {
     color: var(--text-dark);
     line-height: 1.45;
     background-color: var(--background-color);
+}
+
+.header {
+    padding: 0 2rem;
+    border-bottom: var(--border);
+}
+
+.header__logo {
+    display: flex;
+    align-items: center;
+    height: 4rem;
+    color: black;
+    text-decoration: none;
+}
+
+.header__logo:hover {
+    color: var(--accent-colour);
+}
+
+.logo__icon {
+    width: 2.5rem;
+    height: 4rem;
+}
+
+.logo_name {
+    margin-left: 0.5rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav {
+    display: flex;
+}
+
+.nav__link {
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav__link-active {
+    background: var(--accent-colour);
+    color: var(--text-light);
+}
+
+.nav__link:not(:last-child) {
+    margin-right: 1rem;
+}
+
+.nav__link:hover {
+    margin-bottom: -3px;
+    border-bottom: var(--border)
+}
+
+.nav__item {
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.nav__icon {
+    width: 1em;
+    height: 1em;
 }
 
 .button {
@@ -61,6 +132,8 @@ body {
     text-decoration: none;
     color: var(--accent-colour);
     white-space: nowrap;
+    max-width: 75rem;
+    margin: 0 auto;
 }
 
 .link:hover {
