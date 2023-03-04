@@ -83,7 +83,7 @@ body {
     display: flex;
     align-items: center;
     height: 4rem;
-    color: black;
+    color: inherit;
     text-decoration: none;
 }
 
@@ -93,7 +93,7 @@ body {
 
 .logo__icon {
     width: 2.5rem;
-    height: 4rem;
+    height: 2.5rem;
 }
 
 .logo_name {
@@ -106,6 +106,8 @@ body {
 .nav-container {
     display: flex;
     justify-content: space-between;
+    max-width: 75rem;
+    margin: 0 auto;
 }
 
 .nav {
@@ -143,6 +145,19 @@ body {
 .nav__icon {
     width: 1em;
     height: 1em;
+}
+
+.main {
+  flex-grow: 1;
+  padding: 3rem 1.5rem 2rem 1.5rem;
+}
+
+/* The following media query increase the distance of the main content from the header
+   as the window size increases. */
+@media screen and (min-width: 30em) {
+  .main {
+    padding-top: 5rem;
+  }
 }
 
 .footer {
