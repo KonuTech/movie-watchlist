@@ -24,7 +24,7 @@
     --border: 3px solid #ffff; /*border:  var(--border);*/
 }
 
-button {
+.button {
     --background-color: #e2e8f0;
     --background-color-hover: #bdd1eb;
 }
@@ -122,7 +122,7 @@ body {
     color: inherit;
 }
 
-.nav__link-active {
+.nav__link--active {
     background: var(--accent-color);
     color: var(--text-light);
 }
