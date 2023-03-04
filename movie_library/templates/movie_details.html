@@ -13,7 +13,11 @@
             <div class="movie__name">
                 <h1>{{ movie.title }}</h1>
                 <div class="movie__rating">
-                    {{ movie.rating }}
+                    {% for i in range(5) %}
+                        <a class="rating__link" href="{{ url_for('pages.rate_movie', _id=movie._id, rating=i+1) }}">
+                            {{ star("star " + ("star--filled" if movie.rating > i else "")) }}
+                        </a>
+                    {% endfor %}
                 </div>
             </div>
             <div class="movie__watched">
@@ -62,7 +66,7 @@
                 {% for actor in movie.cast %}
                     <li class="list__item">{{ actor }}</li>
                 {% endfor %}
-                <ul>
+                </ul>
             </div>
         {% endif %}
         {% if movie.series | length %}
@@ -72,7 +76,7 @@
                 {% for movie_in_series in movie.series %}
                     <li class="list__item">{{ movie_in_series }}</li>
                 {% endfor %}
-                <ul>
+                </ul>
             </div>
         {% endif %}
     </div>
