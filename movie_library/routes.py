@@ -2,7 +2,7 @@ import datetime
 import uuid
 from flask import Blueprint, render_template, session, redirect, request, current_app, url_for, abort, flash
 from dataclasses import asdict
-from movie_library.forms import MovieForm, ExtendedMovieForm, RegisterFrom
+from movie_library.forms import MovieForm, ExtendedMovieForm, RegisterFrom, LoginForm
 from movie_library.models import Movie, User
 from passlib.hash import pbkdf2_sha256
 
@@ -18,7 +18,7 @@ def index():
     user_data = current_app.db.user.find_one({"email": session["email"]})
     user = User(**user_data)
 
-    movie_data = current_app.db.movie.find({"_id": {"$in": user.movies}})
+    movie_data = current_app.db.movie.find({})
     movies = [Movie(**movie) for movie in movie_data]
 
     return render_template("index.html", title="Movies Watchlist", movies_data=movies)
@@ -38,13 +38,38 @@ def register():
             password=pbkdf2_sha256.hash(form.password.data)
         )
 
-        current_app.db.movie.insert_one(asdict(user))
+        current_app.db.user.insert_one(asdict(user))
 
         flash("User registered successfully", "success")
 
-        return redirect(url_for(".index"))
+        return redirect(url_for(".login"))
 
     return render_template("register.html", title="Movie Watchlist - Register", form=form)
+
+
+@pages.route("/login", methods=["GET", "POST"])
+def login():
+    if session.get("email"):
+        return redirect(url_for(".index"))
+
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        user_data = current_app.db.user.find_one({"email": form.email.data})
+        if not user_data:
+            flash("Login credentials not correct", category="danger")
+            return redirect(url_for(".login"))
+        user = User(**user_data)  # user object inserted by data from MongoDB
+
+        if user and pbkdf2_sha256.verify(form.password.data, user.password):
+            session["user_id"] = user._id
+            session["email"] = user.email
+
+            return redirect(url_for(".index"))
+
+        flash("Login credentials not correct", category="danger")
+
+    return render_template("login.html", title="Movie Watchlist - Login", form=form)
 
 
 @pages.route("/add", methods=["GET", "POST"])
